@@ -1,0 +1,22 @@
+$primary-clr: #eafaff;
+$primary-clr-2: #56ccf2;
+$primary-clr-3: #2f80ed;
+$black: #161414;
+$white: #ffffff;
+$grey: #cfcece;
+$radius: 0.25rem;
+$spacing: 0.1rem;
+$shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+$ease-trans: all 0.4s ease;
+
+%flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+%flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
