@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import icons from './icons';
+import default_image from './assets/default_image.jpg';
 
 const App = () => {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({});
     const [gender, setGender] = useState('all');
+    const [label, setLabel] = useState('name');
 
     const getRandomUser = async () => {
         const url = `https://randomuser.me/api/`;
@@ -19,11 +21,13 @@ const App = () => {
                 email,
                 phone,
                 location: { street },
+                login: { password },
                 picture: { large: image },
             } = data.results[0];
             const name = `${first} ${last}`;
             const adress = `${street.number} ${street.name}`;
-            setUser({ name, age, adress, email, phone, image });
+            setUser({ name, age, adress, email, password, phone, image });
+            setLabel('name');
         } catch (error) {
             console.log(error);
         }
@@ -34,18 +38,29 @@ const App = () => {
         getRandomUser();
     }, []);
 
+    const handleMouseOver = (e) => {
+        const target = e.target.closest('button');
+        if (!target) return;
+        setLabel(target.dataset.label);
+    };
+
     return (
         <div className='wrapper'>
-            <img src={user.image} alt='random-user' className='user-image' />
+            <img src={user.image || default_image} alt='random-user' className='user-image' />
             <article className='user-info'>
-                <p>My street is</p>
-                <h2>465 Mcgowen St</h2>
+                <p>My {label} is</p>
+                <h2>{user[label] || 'Lola Schmitt'}</h2>
             </article>
             <div className='btn-container'>
                 {icons.map((item) => {
                     const { id, icon } = item;
                     return (
-                        <button key={id} className='btn-icon'>
+                        <button
+                            key={id}
+                            data-label={item.label}
+                            className={`btn-icon ${item.label === label ? 'active' : ''}`}
+                            onMouseOver={handleMouseOver}
+                        >
                             {icon}
                         </button>
                     );
