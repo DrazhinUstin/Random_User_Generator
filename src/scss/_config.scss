@@ -21,3 +21,15 @@ $ease-trans: all 0.4s ease;
     justify-content: space-between;
     align-items: center;
 }
+
+@mixin for-size($size) {
+    @if ($size == medium) {
+        @media all and (max-width: 600px) {
+            @content;
+        }
+    } @else if ($size == small) {
+        @media all and (max-width: 400px) {
+            @content;
+        }
+    }
+}

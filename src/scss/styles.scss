@@ -11,6 +11,7 @@
 body {
     min-height: 100vh;
     @extend %flex-center;
+    padding: 2rem 0;
     background: linear-gradient($primary-clr-2 0%, $primary-clr-3);
     line-height: 1;
 }
@@ -27,6 +28,10 @@ img {
     display: block;
 }
 
+svg {
+    display: block;
+}
+
 input,
 select {
     background-color: $white;
@@ -36,13 +41,12 @@ select {
 
 button {
     font-size: 1rem;
-    line-height: 1;
     cursor: pointer;
 }
 
 .btn {
     height: 2rem;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
     border: none;
     border-radius: $radius;
     background-color: $primary-clr-3;
@@ -62,8 +66,8 @@ button {
     font-size: 1.5rem;
     cursor: default;
     transition: $ease-trans;
-    svg {
-        display: block;
+    @include for-size(small) {
+        font-size: 1.2rem;
     }
     &.active {
         color: $orange;
@@ -86,6 +90,9 @@ button {
     background-color: $white;
     box-shadow: $shadow;
     text-align: center;
+    @include for-size(small) {
+        padding: 2rem 1rem;
+    }
     &::before {
         content: '';
         position: absolute;
@@ -113,8 +120,15 @@ button {
 
 .user-info {
     margin: 2rem 0;
+    word-break: break-all;
     p {
         margin-bottom: 1rem;
+    }
+    @include for-size(medium) {
+        h2 {
+            font-size: 1.2rem;
+            letter-spacing: unset;
+        }
     }
 }
 
@@ -137,5 +151,17 @@ button {
     }
     button {
         width: 8rem;
+    }
+}
+
+.github-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: darken($primary-clr-3, 15%);
+    font-size: 1.6rem;
+    transition: $ease-trans;
+    &:hover {
+        color: $orange;
     }
 }

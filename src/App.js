@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaGithub } from 'react-icons/fa';
 import icons from './icons';
 import default_image from './assets/default_image.jpg';
 
@@ -15,18 +16,22 @@ const App = () => {
         try {
             const response = await fetch(fullUrl);
             const data = await response.json();
-            const {
-                name: { first, last },
-                dob: { age },
-                email,
-                phone,
-                location: { street },
-                login: { password },
-                picture: { large: image },
-            } = data.results[0];
-            const name = `${first} ${last}`;
-            const adress = `${street.number} ${street.name}`;
-            setUser({ name, age, adress, email, password, phone, image });
+            if (data.results) {
+                const {
+                    name: { first, last },
+                    dob: { age },
+                    email,
+                    phone,
+                    location: { street },
+                    login: { password },
+                    picture: { large: image },
+                } = data.results[0];
+                const name = `${first} ${last}`;
+                const adress = `${street.number} ${street.name}`;
+                setUser({ name, age, adress, email, password, phone, image });
+            } else {
+                setUser({});
+            }
             setLabel('name');
         } catch (error) {
             console.log(error);
@@ -85,6 +90,14 @@ const App = () => {
                     {loading ? 'loading...' : 'generate'}
                 </button>
             </form>
+            <a
+                href='https://github.com/DrazhinUstin/Random_User_Generator'
+                className='github-icon'
+                target='_blank'
+                rel='noopener noreferrer'
+            >
+                <FaGithub />
+            </a>
         </div>
     );
 };
